@@ -1,23 +1,28 @@
-import { GlobalStyle } from "./data/GlobalStyles";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Login from "./components/Login/Login";
-import Registration from "./components/Registration/Registration";
-import Habits from "./components/Habits/Habits";
-import Today from "./components/Today/Today";
-import Historic from "./components/Historic/Historic";
+import LoginPage from "./pages/LoginPage/LoginPage"
+import SignUpPage from "./pages/SignUpPage/SignUpPage"
+import HabitsPage from "./pages/HabitsPage/HabitsPage"
+import TodayPage from "./pages/TodayPage/TodayPage"
+import HistoryPage from "./pages/HistoryPage/HistoryPage"
+import ErrorPage from "./pages/ErrorPage/ErrorPage"
+import { BrowserRouter, Route, Routes } from "react-router-dom"
+import UserProvider from "./contexts/UserContext"
+import ProgressProvider from "./contexts/ProgressContext"
+
 export default function App() {
   return (
-    <>
-      <GlobalStyle />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/registration" element={<Registration />} />
-          <Route path="/habits" element={<Habits />} />
-          <Route path="/today" element={<Today />} />
-          <Route path="/historic" element={<Historic />} />
-        </Routes>
-      </BrowserRouter>
-    </>
-  );
+    <BrowserRouter>
+      <ProgressProvider>
+        <UserProvider>
+          <Routes>
+            <Route path="/" element={<LoginPage />} />
+            <Route path="/cadastro" element={<SignUpPage />} />
+            <Route path="/habitos" element={<HabitsPage />} />
+            <Route path="/hoje" element={<TodayPage />} />
+            <Route path="/historico" element={<HistoryPage />} />
+            <Route path="*" element={<ErrorPage />} />
+          </Routes>
+        </UserProvider>
+      </ProgressProvider>
+    </BrowserRouter>
+  )
 }
